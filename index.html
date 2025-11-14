@@ -11,6 +11,53 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+		    .kpi-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 20px;
+			margin-bottom: 30px;
+			}
+			.kpi-card {
+				background: rgba(0, 0, 0, 0.623);
+				padding: 20px;
+				border-radius: 10px;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+				text-align: center;
+			}
+			.kpi-title { font-size: 14px; color: #ffffff; }
+			.kpi-value { font-size: 32px; font-weight: bold; margin: 10px 0; color: #024873; }
+			.kpi-sub { color: #ffffff; font-size: 13px; }
+
+			/* Mini-bar chart */
+			.chart {
+				display: flex;
+				height: 60px;
+				align-items: flex-end;
+				gap: 4px;
+				margin-top: 5px;
+			}
+			.bar {
+				width: 12px;
+				background: #438ec9;
+				border-radius: 3px;
+			}
+
+			/* Section */
+			.section {
+				background: rgba(0, 0, 0, 0.623);
+				padding: 20px;
+				border-radius: 10px;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+				margin-top: 25px;
+			}
+			.asset-form input { margin: 5px; padding: 5px; }
+			table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+			th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
+			th { background: #024873; color: #fff; }
+			.actions button { margin-right: 5px; }
+			#search { margin-bottom: 10px; padding: 6px; width: 300px; }
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -22,8 +69,8 @@
 
 						<nav>
 							<ul>
-								<li><a href="#intro">Intro</a></li>
-								<li><a href="#work">Work</a></li>
+								<li><a href="resurssien-hallinta.html#wrap">Resurssien hallinta</a></li>
+								<li><a href="#kpi-ohjauspaneeli">KPI Ohjauspaneeli</a></li>
 								<li><a href="#Muutostilaukset">Muutostilaukset</a></li>
 								<li><a href="#contact">Contact</a></li>
 								<!--<li><a href="#elements">Elements</a></li>-->
@@ -34,27 +81,128 @@
 				<!-- Main -->
 					<div id="main">
 
-						<!-- Intro -->
-							<article id="intro">
-								<h2 class="major">Intro</h2>
-								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-								<p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. By the way, check out my <a href="#work">awesome work</a>.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
-							</article>
+						<!-- KPI Dashboar -->
+							<article id="kpi-ohjauspaneeli">
+								<h2>KPI Ohjauspaneeli</h2>
+								<!-- KPI CARDS -->
+								<div class="kpi-grid">
+									<div class="kpi-card">
+										<div class="kpi-title">Kuukausituotanto</div>
+										<div class="kpi-value" id="kpiOutput">0</div>
+										<div class="kpi-sub">Valmistuneet teräsosat</div>
+									</div>
 
-						<!-- Work -->
-							<article id="work">
-								<h2 class="major">Work</h2>
-								<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
-								<p>Adipiscing magna sed dolor elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices.</p>
-								<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet feugiat tempus.</p>
+									<div class="kpi-card">
+										<div class="kpi-title">Keskim. tuotannon viivästys</div>
+										<div class="kpi-value" id="kpiDelay">0pv</div>
+										<div class="kpi-sub">Per kokoonpanolohko</div>
+									</div>
+
+									<div class="kpi-card">
+										<div class="kpi-title">Turvallisuustapaukset</div>
+										<div class="kpi-value" id="kpiSafety">0</div>
+										<div class="kpi-sub">Tässä kuussa</div>
+									</div>
+
+									<div class="kpi-card">
+										<div class="kpi-title">Kassavirran kulutusaste</div>
+										<div class="kpi-value" id="kpiBudget">0%</div>
+										<div class="kpi-sub">Projekti 011-FR</div>
+									</div>
+								</div>
+
+								<!-- MINI CHART SECTION -->
+								<div class="section">
+									<h3>📈 Tuotantotrendi (Viimeiset 8 viikkoa)</h3>
+									<div class="chart" id="trendChart"></div>
+								</div>
+
+								<!-- DATA TABLE SECTION -->
+								<div class="section">
+									<h3>⚙ Viimeaikaiset toimintamittarit</h3>
+									<table border="1" width="100%" style="border-collapse:collapse; margin-top:10px;">
+										<thead style="background:#024873; color:white;">
+											<tr>
+												<th>Viikko</th>
+												<th>Valmistuneet osat</th>
+												<th>Keskim. viivästys (päivinä)</th>
+												<th>Turvallisuustapaukset</th>
+												<th>Budjetti</th>
+											</tr>
+										</thead>
+										<tbody id="dataTable"></tbody>
+									</table>
+								</div>
+
+								<script>
+								/* ---------------------------------------------------------
+								Example Shipyard KPI Data (integrated)
+								--------------------------------------------------------- */
+								const kpiData = {
+									output: 342,
+									delay: 1.8,
+									safety: 2,
+									budget: 68,
+
+									weeklyTrend: [35, 42, 30, 48, 51, 44, 57, 35],
+
+									table: [
+										{ week: "W01", sections: 35, delay: 2.0, safety: 1, budget: 61 },
+										{ week: "W02", sections: 42, delay: 1.4, safety: 0, budget: 63 },
+										{ week: "W03", sections: 30, delay: 2.2, safety: 0, budget: 64 },
+										{ week: "W04", sections: 48, delay: 1.7, safety: 1, budget: 66 },
+										{ week: "W05", sections: 51, delay: 1.5, safety: 0, budget: 67 },
+										{ week: "W06", sections: 44, delay: 2.1, safety: 0, budget: 68 },
+										{ week: "W07", sections: 57, delay: 1.2, safety: 0, budget: 68 },
+										{ week: "W08", sections: 35, delay: 2.3, safety: 1, budget: 68 }
+									]
+								};
+
+								/* ---------------------------------------------------------
+								Render KPIs
+								--------------------------------------------------------- */
+								document.getElementById("kpiOutput").textContent = kpiData.output;
+								document.getElementById("kpiDelay").textContent = kpiData.delay + "pv";
+								document.getElementById("kpiSafety").textContent = kpiData.safety;
+								document.getElementById("kpiBudget").textContent = kpiData.budget + "%";
+
+								/* ---------------------------------------------------------
+								Render Mini Trend Chart
+								--------------------------------------------------------- */
+								const maxVal = Math.max(...kpiData.weeklyTrend);
+								const chart = document.getElementById("trendChart");
+
+								kpiData.weeklyTrend.forEach(v => {
+									const bar = document.createElement("div");
+									bar.className = "bar";
+									bar.style.height = (v / maxVal * 60) + "px";
+									chart.appendChild(bar);
+								});
+
+								/* ---------------------------------------------------------
+								Render Operational Table
+								--------------------------------------------------------- */
+								const tbody = document.getElementById("dataTable");
+
+								kpiData.table.forEach(row => {
+									const tr = document.createElement("tr");
+									tr.innerHTML = `
+										<td>${row.week}</td>
+										<td>${row.sections}</td>
+										<td>${row.delay}</td>
+										<td>${row.safety}</td>
+										<td>${row.budget}%</td>
+									`;
+									tbody.appendChild(tr);
+								});
+								</script>
 							</article>
 
 						<!-- Muutostilaukset -->
 							<article id="Muutostilaukset">
 								<h2>Muutostilaukset</h2>
     
-								<label for="statusDropdown">Status:</label>
+								<label for="statusDropdown">Tilanne:</label>
 								<select id="statusDropdown">
 									<option value="">Kaikki</option>
 								</select>
@@ -64,17 +212,17 @@
 									<option value="">Kaikki</option>
 								</select>
 
-								<label for="searchInput">Haku (COD tai Discipline):</label>
+								<label for="searchInput">Haku (COD tai Tiedonala):</label>
 								<input type="text" id="searchInput" placeholder="Kirjoita hakusana">
 								
 								<table id="changeOrdersTable">
 									<thead>
 										<tr>
 											<th>COD</th>
-											<th>Area</th>
-											<th>Discipline</th>
-											<th>Status</th>
-											<th>Date <button id="sortDateBtn">↕</button></th>
+											<th>Alue</th>
+											<th>Tiedonala</th>
+											<th>Tilanne</th>
+											<th>Päiväys <button id="sortDateBtn">↕</button></th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -181,8 +329,12 @@
 
 									parseCSV();
 								</script>
-								</article>
+							</article>
 					</div>
+
+					
+
+					
 
 				<!-- Footer -->
 					<footer id="footer">
